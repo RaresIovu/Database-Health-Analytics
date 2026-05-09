@@ -13,7 +13,6 @@ def get_connection():
                                host = "127.0.0.1",
                                port = "5432",
                                database = "Health_monitor")
-        print("Successfully connected to PostgreSQL")
         return con
 
     except Exception as e:
