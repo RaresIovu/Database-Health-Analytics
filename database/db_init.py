@@ -14,11 +14,9 @@ def init():
                                dbname = "postgres")
         con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         with con.cursor() as cur:
-            cur.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'health_monitor'")
-            if cur.fetchone():
-                print("Database already initialised")
-            else:
-                cur.execute('CREATE DATABASE "health_monitor"')
+            cur.execute("SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'Health_monitor'")
+            if not cur.fetchone():
+                cur.execute('CREATE DATABASE "Health_monitor"')
                 print("Database created")
     except Exception as e:
         print(e)

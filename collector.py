@@ -1,5 +1,5 @@
 import time
-from service import save_to_json
+from json_service import save_to_json
 from db_metrics import get_con_metrics, get_db_size
 from system_metrics import get_sys_metrics
 
@@ -11,5 +11,5 @@ def collect_metrics():
             "db_size": get_db_size()
         }
         save_to_json(metrics)
-        time.sleep(60)
+        time.sleep(30)
     
