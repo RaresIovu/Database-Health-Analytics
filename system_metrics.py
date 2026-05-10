@@ -10,9 +10,3 @@ def get_sys_metrics():
         "ram_percent": memory.percent,
         "disk_percent": disk.percent
     }
-
-def print_sys_metrics():
-    metrics = get_sys_metrics()
-    print(f"CPU: {metrics['cpu_percent']}%")
-    print(f"RAM: {metrics['ram_percent']}%")
-    print(f"Disk: {metrics['disk_percent']}%")

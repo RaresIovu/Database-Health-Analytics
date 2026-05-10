@@ -1,11 +1,18 @@
-from db_metrics import get_con_metrics, get_db_size
-from system_metrics import get_sys_metrics
-from service import save_to_json
+from service import get_all_logs
+from flask import Flask, jsonify
+import threading
+from collector import collect_metrics
+
+app = Flask(__name__, template_folder="templates")
+@app.route('/dashboard', methods=['GET'])
+def dashboard():
+    try:
+        metrics = get_all_logs()
+        return metrics
+    except Exception as e:
+        return jsonify({"eroare": "A survenit o eroare"})
 
 if(__name__ == "__main__"):
-    metrics = {
-        "connections": get_con_metrics(),
-        "system": get_sys_metrics(),
-        "db_size": get_db_size()
-    }
-    save_to_json(metrics)
+    collector_thread = threading.Thread(target=collect_metrics, daemon=True)
+    collector_thread.start()
+    app.run(debug=True, host="0.0.0.0", port=5000, use_reloader=False)
