@@ -2,7 +2,7 @@ from json_service import get_all_logs
 from flask import Flask, jsonify
 import threading
 from collector import collect_metrics
-from simulate_traffic import run_simulation
+from tests.simulate_traffic import run_simulation
 
 app = Flask(__name__, template_folder="templates")
 @app.route('/dashboard', methods=['GET'])

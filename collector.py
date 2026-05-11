@@ -1,7 +1,7 @@
 import time
 from json_service import save_to_json
-from db_metrics import get_con_metrics, get_db_size
-from system_metrics import get_sys_metrics
+from metrics.db_metrics import get_con_metrics, get_db_size
+from metrics.system_metrics import get_sys_metrics
 
 def collect_metrics():
     while True:
