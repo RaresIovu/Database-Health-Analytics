@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% set pagina = 'dashboard' %}
+
+{% block titlu %}Dashboard{% endblock %}
+
+{% block continut %}
+<h1>System Health Monitor</h1>
+
+<!-- 1. Quick Stats Row -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    {% if metrics and metrics|length > 0 %}
+        {% set latest = metrics[-1] %}
+        <div class="card" style="text-align: center; padding: 1.5rem;">
+            <label>CPU Usage</label>
+            <div style="font-size: 2rem; font-weight: 800; color: {{ '#f87171' if latest.system.cpu_max > 80 else '#4ade80' }};">
+                {{ latest.system.cpu_max }}%
+            </div>
+        </div>
+        <div class="card" style="text-align: center; padding: 1.5rem;">
+            <label>RAM Usage</label>
+            <div style="font-size: 2rem; font-weight: 800; color: {{ '#f87171' if latest.system.ram_max > 80 else '#4ade80' }};">
+                {{ latest.system.ram_max }}%
+            </div>
+        </div>
+        <div class="card" style="text-align: center; padding: 1.5rem;">
+            <label>DB Latency</label>
+            <div style="font-size: 2rem; font-weight: 800; color: #38bdf8;">
+                <span style="font-size: 1rem;"> N/A ms</span>
+                <!-- {{ latest.db_latency_ms }} -->
+            </div>
+        </div>
+    {% else %}
+        <div class="card">No data available yet. Start the collector!</div>
+    {% endif %}
+</div>
+
+<!-- 2. Simulation Controls -->
+<div class="card" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #38bdf8;">
+    <div>
+        <h3 style="color: #0f172a;">Stress Test Controls</h3>
+        <p style="font-size: 0.85rem; color: #0f172a;">Inject "Poison Queries" to test database resilience.</p>
+    </div>
+    <div style="display: flex; gap: 1rem;">
+        <!-- These will call your Flask API via JavaScript later -->
+        <button class="btn-primar" onclick="toggleSimulation()">Start Simulation</button>
+        <button class="btn-secundar" onclick="clearLogs()">Wipe History</button>
+    </div>
+</div>
+
+<!-- 3. Logs Table -->
+<div class="card">
+    <h3 style="margin-bottom: 1rem; color: #0f172a;">Snapshot History (Latest 20)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>CPU</th>
+                <th>RAM</th>
+                <th>DB Latency</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in metrics[-20:]|reverse %}
+            <tr>
+                <td style="font-family: monospace;">{{ log.timestamp.split('T')[1][:8] if 'T' in log.timestamp else log.timestamp }}</td>
+                <td>{{ log.system.cpu_max }}%</td>
+                <td>{{ log.system.ram_max }}%</td>
+                <td> N/A ms</td>
+                <!-- {{ log.db_latency_ms }} -->
+                <td>
+                    {% if log.system.cpu_max > 80 %}
+                        <span class="badge badge-error">STRESSED</span>
+                    {% else %}
+                        <span class="badge badge-post">HEALTHY</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Placeholder functions for your buttons
+    function toggleSimulation() {
+        console.log("Sending start/stop signal to Manager...");
+        // You'll add fetch('/simulation/toggle') here tomorrow!
+    }
+
+    function clearLogs() {
+        if(confirm("Delete all history?")) {
+            console.log("Wiping JSON logs...");
+        }
+    }
+</script>
+{% endblock %}
