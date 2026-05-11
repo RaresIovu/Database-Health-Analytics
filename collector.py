@@ -11,5 +11,5 @@ def collect_metrics():
             "db_size": get_db_size()
         }
         save_to_json(metrics)
-        time.sleep(30)
+        time.sleep(60)
     

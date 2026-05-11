@@ -5,6 +5,9 @@ from contextlib import contextmanager
 load_dotenv()
 
 db_pass = os.getenv("DB_PASSWORD")
+db_name = os.getenv("DB_NAME")
+db_host = os.getenv("HOST")
+db_port = os.getenv("PORT")
 
 @contextmanager
 def get_connection():
@@ -12,9 +15,9 @@ def get_connection():
     try:
         con = psycopg2.connect(user="postgres", 
                                password = db_pass,
-                               host = "127.0.0.1",
-                               port = "5432",
-                               database = "Health_monitor")
+                               host = db_host,
+                               port = db_port,
+                               database = db_name)
         yield con
         con.commit()
     except Exception as e:
