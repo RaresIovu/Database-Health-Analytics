@@ -40,16 +40,19 @@
         <p style="font-size: 0.85rem; color: #0f172a;">Inject "Poison Queries" to test database resilience.</p>
     </div>
     <div style="display: flex; gap: 1rem;">
-        <!-- These will call your Flask API via JavaScript later -->
-        <button class="btn-primar" onclick="toggleSimulation()">Start Simulation</button>
-        
+        <button id="start-btn" onclick="startSimulation()" class="btn-primar" {% if is_running %} disabled {% endif %}>Start Simulation</button>
+        <button id="stop-btn" onclick="stopSimulation()" class="btn-primar" {% if not is_running %} disabled {% endif %}>Stop Simulation</button>
     </div>
 </div>
 
 <!-- 3. Logs Table -->
 <div class="card">
     <h3 style="margin-bottom: 1rem; color: #0f172a;">Snapshot History (Latest 20)</h3>
-    <button class="btn-secundar" onclick="clearLogs()">Wipe History</button>
+    <button id="clear-btn" 
+    data-status="idle" 
+    onclick="clearLogs(this)" 
+    class="btn-primar">
+    CLEAR LOGS</button>
     <table>
         <thead>
             <tr>
@@ -81,16 +84,80 @@
 </div>
 
 <script>
-    // Placeholder functions for your buttons
-    function toggleSimulation() {
-        console.log("Sending start/stop signal to Manager...");
-        // You'll add fetch('/simulation/toggle') here tomorrow!
+    function startSimulation() {
+        const stopBtn = document.getElementById('stop-btn');
+        const startBtn = document.getElementById('start-btn');
+        console.log("Sending start signal to Manager...");
+        fetch('/api/simulation/start', { 
+            method: 'POST' 
+        }).then(response => {
+            if (response.ok) {
+                stopBtn.disabled = false
+                startBtn.disabled = true
+                showToast("Worker Active: Stress Test Started", "success");
+            } else {
+                alert("Failed to start simulation.");
+            }
+        })
+        .catch(err => console.error("Error:", err));
     }
 
-    function clearLogs() {
-        if(confirm("Delete all history?")) {
-            console.log("Wiping JSON logs...");
-        }
+    function stopSimulation() {
+        const stopBtn = document.getElementById('stop-btn');
+        const startBtn = document.getElementById('start-btn');
+        fetch('/api/simulation/stop', { 
+            method: 'POST' 
+        }).then(response => {
+            if (response.ok) {
+                stopBtn.disabled = true
+                startBtn.disabled = false
+                showToast("Worker Killed: Stress Test Stopped", "success");
+            } else {
+                alert("Failed to stop simulation.");
+            }
+        })
+        .catch(err => console.error("Error:", err));
     }
+
+    function clearLogs(btn) {
+
+        if (btn.getAttribute('data-status') !== 'armed') {
+        // Arm the button
+        btn.setAttribute('data-status', 'armed');
+        btn.innerText = "CONFIRM DELETE";
+        btn.classList.add('btn-danger-confirm'); 
+
+        clearTimer = setTimeout(() => {
+            resetClearButton(btn);
+        }, 3000);
+        
+        return; // Stop here and wait for second click
+    }
+
+    // Step 3: The actual execution (happens on second click)
+    clearTimeout(clearTimer); // Stop the reset timer
+    console.log("Wiping JSON logs...");
+    
+    fetch('/clear-logs', { method: 'POST' })
+    .then(response => {
+        if (response.ok) {
+            showToast("Logs purged. Reloading...", "success");
+            setTimeout(() => window.location.reload(), 1200);
+        } else {
+            showToast("Wipe failed at server level", "error");
+            resetClearButton(btn);
+        }
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        resetClearButton(btn);
+    });
+        }
+    function resetClearButton(btn) {
+    btn.setAttribute('data-status', 'idle');
+    btn.innerText = "CLEAR LOGS";
+    btn.classList.remove('btn-danger-confirm');
+    }
+
 </script>
 {% endblock %}

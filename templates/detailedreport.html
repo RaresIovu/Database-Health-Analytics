@@ -24,29 +24,35 @@
             <tr>
                 <td style="font-family: monospace;">{{ log.timestamp.split('T')[1][:8] if 'T' in log.timestamp else log.timestamp }}</td>
                 <td>
-                RAM: {{ log.system.ram_max }}%<br>
+                <span class="{{ 'text-danger' if log.system.ram_max > 80 else '' }}">
+                    RAM: {{ log.system.ram_max }}%
+                </span><br>
+                
                 <small style="color: #94a3b8;">Swap: {{ log.system.swap_memory_max }}%</small>
             </td>
 
             <!-- SYSTEM BUNDLE -->
             <td>
-                CPU: {{ log.system.cpu_max }}%<br>
+                <span class="{{ 'text-danger' if log.system.cpu_max > 80 else '' }}">
+                    CPU: {{ log.system.cpu_max }}%
+                </span><br>
                 Disk: {{ log.system.disk_percent }}%
             </td>
 
             <!-- TRAFFIC BUNDLE -->
             <td>
-                Active: {{ log.connections.total_active }}<br>
-                Avg: {{ log.connections.average_connections }}
+                Total(Avg): {{ log.connections.average_connections }}<br>
+                Active: {{ log.connections.active_connections }} 
             </td>
 
             <!-- PERFORMANCE BUNDLE -->
             <td>
-                <span class="{{ 'text-danger' if log.connections.longest_query > 1 else '' }}">
-                    Longest Query: {{ log.connections.longest_query }}s
+                <span class="{{ 'text-danger' if log.connections.slow_queries > 5 else '' }}">
+                    Slow Queries: {{ log.connections.slow_queries }}
                 </span><br>
-                Longest Read Q: {{ log.connections.longest_read}}s  
-                Longest Write Q: {{ log.connections.longest_write }}s
+                Longest Read Q: {{ log.connections.longest_read}}s<br>
+                Longest Write Q: {{ log.connections.longest_write }}s<br>
+                Database Size: {{ log.db_size }}<br>
             </td>
             </tr>
             {% endfor %}

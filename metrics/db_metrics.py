@@ -3,10 +3,10 @@ from psycopg2.extras import RealDictCursor
 import time
 
 def get_con_metrics(samples = 5):
+    active_samples = []
     totalcon_samples = []
     slowq_samples = []
     latency_samples = []
-    maxduration_samples = []
     maxreads_samples = []
     maxwrites_samples = []
     for _ in range(samples):
@@ -23,16 +23,15 @@ def get_con_metrics(samples = 5):
                                 count(*) FILTER (WHERE state = 'active') AS active,
                                 count(*) FILTER (WHERE state = 'idle') AS idle,
                                 count(*) FILTER (WHERE state = 'active' AND (now() - query_start) > interval '2 seconds') AS slow_count,
-                                EXTRACT(EPOCH FROM MAX(now() - query_start) FILTER (WHERE state = 'active')) AS max_duration,
                                 EXTRACT(EPOCH FROM MAX(now() - query_start) FILTER (WHERE state = 'active' AND query ~* '^\s*SELECT')) AS max_read_duration,
                                 EXTRACT(EPOCH FROM MAX(now() - query_start) FILTER (WHERE state = 'active' AND query ~* '^\s*(INSERT|UPDATE|DELETE)')) AS max_write_duration
                                 FROM pg_stat_activity""")
                 stats = cur.fetchone()
                 if stats:
+                    active_samples.append(stats["active"])
                     totalcon_samples.append(stats["total"])
                     slowq_samples.append(stats["slow_count"])
                     latency_samples.append(latency)
-                    maxduration_samples.append(stats["max_duration"])
                     if(stats["max_read_duration"] is None):
                         maxreads_samples.append(0)
                     else:
@@ -45,14 +44,14 @@ def get_con_metrics(samples = 5):
                 time.sleep(0.2)
 
     if not totalcon_samples:
-        return {"total": 0, "active": 0, "idle": 0}
+        return {"average_connections": 0, "active_connections":0, "slow_queries": 0, "db_latency": 0, "longest_read": 0, "longest_write": 0}
     return {
+        "active_connections": int(sum(active_samples)/len(active_samples)),
         "average_connections": int(sum(totalcon_samples)/len(totalcon_samples)),
         "slow_queries": int(sum(slowq_samples)/len(slowq_samples)),
         "db_latency": round(sum(latency_samples)/len(latency_samples),2),
-        "longest_query": round(float(max(maxduration_samples)),2),
-        "longest_read": round(float(max(maxreads_samples)),2),
-        "longest_write": round(float(max(maxwrites_samples)),2)
+        "longest_read": abs(round(float(max(maxreads_samples)),2)),
+        "longest_write": abs(round(float(max(maxwrites_samples)),2))
     }
     
 def get_db_size():

@@ -12,7 +12,6 @@ def get_sys_metrics(samples = 5):
         time.sleep(0.2)
         
     return {
-        "cpu_average": round(sum(cpu_samples) / samples, 2),
         "cpu_max": max(cpu_samples),
         "ram_max": max(ram_samples),
         "swap_memory_max": max(memory_swap_samples),

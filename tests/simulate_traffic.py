@@ -4,12 +4,11 @@ import threading
 import queue
 
 command_queue = queue.Queue()
+active_worker = None
 
 def simulation_manager():
-    # This thread runs forever, listening for instructions.
-    active_worker = None
+    global active_worker
     stop_event = threading.Event() # A better way to signal threads to stop
-
     while True:
         try:
             # Check for a new command (non-blocking)
@@ -32,6 +31,9 @@ def simulation_manager():
                 
         except queue.Empty:
             continue
+
+def get_sim_state():
+    return active_worker is not None and active_worker.is_alive()
 
 def run_simulation(period, stop_event):
     while not stop_event.is_set():

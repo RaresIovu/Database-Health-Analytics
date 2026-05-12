@@ -1,12 +1,14 @@
-from flask import jsonify, Blueprint
-from json_service import get_all_logs
+import json
+from flask import Blueprint
 
 dashboard_bp = Blueprint('dashboard', __name__)
 
-@dashboard_bp.route('/api.dashboard', methods=['GET'])
-def dashboard():
+@dashboard_bp.route('/clear-logs', methods=['POST'])
+def clear_logs():
     try:
-        metrics = get_all_logs()
-        return metrics
+        print("DELETED")
+        with open('db_log.json', 'w') as f:
+            json.dump([], f)
+        return {"status": "success", "message": "Logs cleared"}, 200
     except Exception as e:
-        return jsonify({"eroare": str(e), "status": 500}), 500
+        return {"status": "error", "message": str(e)}, 500

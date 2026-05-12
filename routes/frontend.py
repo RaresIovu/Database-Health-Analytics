@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from json_service import get_all_logs
+from tests.simulate_traffic import get_sim_state
 
 frontend_bp = Blueprint('frontend', __name__)
 
@@ -10,7 +11,7 @@ def index():
 @frontend_bp.route('/dashboard')
 def dashboard():
     all_logs = get_all_logs()
-    return render_template('dashboard.html', metrics = all_logs)
+    return render_template('dashboard.html', metrics = all_logs, is_running = get_sim_state())
 
 @frontend_bp.route('/detailedreport')
 def detailed_report():

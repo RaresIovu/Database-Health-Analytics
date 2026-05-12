@@ -139,9 +139,48 @@
             transition: background 0.2s;
         }
 
-        .btn-primar {
+        #toast-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        }
+
+        .toast {
+            background: rgba(15, 23, 42, 0.9); /* Dark slate */
+            color: #38bdf8; /* Neon blue */
+            border-left: 4px solid #38bdf8;
+            padding: 12px 24px;
+            margin-top: 10px;
+            border-radius: 4px;
+            /* box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); */
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast.success { border-color: #4ade80; color: #4ade80; }
+        .toast.error { border-color: #f87171; color: #f87171; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+            .btn-primar {
             background-color: #2c3e50;
             color: #fff;
+        }
+
+        .btn-danger-confirm {
+            background-color: #ef4444 !important; /* Bright Red */
+            color: white !important;
+            border: 1px solid #fee2e2;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+            animation: pulse-red 1s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
 
         .btn-primar:hover {
@@ -157,6 +196,15 @@
 
         .btn-secundar:hover {
             background-color: #95a5a6;
+        }
+        button:disabled {
+            background-color: #1e293b !important;
+            color: #64748b !important; 
+            border-color: #334155 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+            box-shadow: none !important;
+            pointer-events: none; 
         }
 
         /* ── Mesaje de feedback ── */
@@ -218,10 +266,26 @@
     <a href="/detailedreport"    {% if pagina == 'report' %}class="activ"{% endif %}>Full Report</a>
 
 </nav>
-
+<div id="toast-container"></div>
 <main>
+    <script>
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerText = message;
+        
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }</script>
     {% block continut %}{% endblock %}
 </main>
 
 </body>
+
+
 </html>
