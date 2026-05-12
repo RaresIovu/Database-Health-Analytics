@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% set pagina = 'report' %}
+
+{% block titlu %}Dashboard{% endblock %}
+
+{% block continut %}
+<h1>System Health Monitor</h1>
+
+<!-- Logs Table -->
+<div class="card">
+    <h3 style="margin-bottom: 1rem; color: #0f172a;">Full Snapshot History</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Memory</th>
+                <th>System</th>
+                <th>DB Traffic</th>
+                <th>DB Performance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in metrics[-100:]|reverse %}
+            <tr>
+                <td style="font-family: monospace;">{{ log.timestamp.split('T')[1][:8] if 'T' in log.timestamp else log.timestamp }}</td>
+                <td>
+                RAM: {{ log.system.ram_max }}%<br>
+                <small style="color: #94a3b8;">Swap: {{ log.system.swap_memory_max }}%</small>
+            </td>
+
+            <!-- SYSTEM BUNDLE -->
+            <td>
+                CPU: {{ log.system.cpu_max }}%<br>
+                Disk: {{ log.system.disk_percent }}%
+            </td>
+
+            <!-- TRAFFIC BUNDLE -->
+            <td>
+                Active: {{ log.connections.total_active }}<br>
+                Avg: {{ log.connections.average_connections }}
+            </td>
+
+            <!-- PERFORMANCE BUNDLE -->
+            <td>
+                <span class="{{ 'text-danger' if log.connections.longest_query > 1 else '' }}">
+                    Longest Query: {{ log.connections.longest_query }}s
+                </span><br>
+                Longest Read Q: {{ log.connections.longest_read}}s  
+                Longest Write Q: {{ log.connections.longest_write }}s
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

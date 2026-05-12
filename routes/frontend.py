@@ -11,3 +11,8 @@ def index():
 def dashboard():
     all_logs = get_all_logs()
     return render_template('dashboard.html', metrics = all_logs)
+
+@frontend_bp.route('/detailedreport')
+def detailed_report():
+    all_logs = get_all_logs()
+    return render_template('detailedreport.html', metrics = all_logs)

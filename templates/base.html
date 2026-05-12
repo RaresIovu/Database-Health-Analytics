@@ -179,6 +179,18 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+        .text-danger {
+            color: #f87171;
+            font-weight: 700;
+        }
+
+        .text-success {
+            color: #4ade80;
+        }
+
+        .text-warning {
+            color: #fbbf24; 
+        }
 
         /* ── Badge metoda HTTP ── */
         .badge {
@@ -203,6 +215,8 @@
     <a class="logo" href="/">Database Health Analytics</a>
     <a href="/"                  {% if pagina == 'home'   %}class="activ"{% endif %}>Home</a>
     <a href="/dashboard"    {% if pagina == 'dashboard' %}class="activ"{% endif %}>Database Health Dashboard</a>
+    <a href="/detailedreport"    {% if pagina == 'report' %}class="activ"{% endif %}>Full Report</a>
+
 </nav>
 
 <main>
