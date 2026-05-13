@@ -23,12 +23,8 @@ def simulation_manager():
                         daemon=True
                     )
                     active_worker.start()
-                    print("[Manager] Started new worker.")
-            
             elif command == "STOP":
-                print("[Manager] Stopping worker...")
-                stop_event.set() # Signals the 'while not stop_event.is_set()' loop to end
-                
+                stop_event.set()
         except queue.Empty:
             continue
 
@@ -37,7 +33,6 @@ def get_sim_state():
 
 def run_simulation(period, stop_event):
     while not stop_event.is_set():
-        print("client joined")
         get_all_knowledge()
         add_knowledge("test_object", 100)
         time.sleep(period)

@@ -4,6 +4,7 @@ import time
 
 def get_con_metrics(samples = 5):
     active_samples = []
+    idle_samples = []
     totalcon_samples = []
     slowq_samples = []
     latency_samples = []
@@ -29,6 +30,7 @@ def get_con_metrics(samples = 5):
                 stats = cur.fetchone()
                 if stats:
                     active_samples.append(stats["active"])
+                    idle_samples.append(stats["idle"])
                     totalcon_samples.append(stats["total"])
                     slowq_samples.append(stats["slow_count"])
                     latency_samples.append(latency)
@@ -46,8 +48,9 @@ def get_con_metrics(samples = 5):
     if not totalcon_samples:
         return {"average_connections": 0, "active_connections":0, "slow_queries": 0, "db_latency": 0, "longest_read": 0, "longest_write": 0}
     return {
-        "active_connections": int(sum(active_samples)/len(active_samples)),
         "average_connections": int(sum(totalcon_samples)/len(totalcon_samples)),
+        "active_connections": int(sum(active_samples)/len(active_samples)),
+        "idle_connections": int(sum(idle_samples)/len(idle_samples)),
         "slow_queries": int(sum(slowq_samples)/len(slowq_samples)),
         "db_latency": round(sum(latency_samples)/len(latency_samples),2),
         "longest_read": abs(round(float(max(maxreads_samples)),2)),

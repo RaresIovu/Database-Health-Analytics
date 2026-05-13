@@ -7,7 +7,7 @@
 <h1>System Health Monitor</h1>
 
 <!-- 1. Quick Stats Row -->
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
     {% if metrics and metrics|length > 0 %}
         {% set latest = metrics[-1] %}
         <div class="card" style="text-align: center; padding: 1.5rem;">
@@ -29,15 +29,24 @@
             </div>
         </div>
     {% else %}
-        <div class="card">No data available yet. Start the collector!</div>
+        <div class="card">No data available yet.</div>
+    {% endif %}
+    
+</div>
+<div class="card" style="text-align: center; padding: 1.5rem;">
+    {% if ai_logs and ai_logs|length > 0 %}
+        {% set latest = ai_logs[-1] %}
+        <label>Latest AI Report</label>
+        <div style="font-size: 0.75 rem; font-weight: 600; color: '#4ade80';">
+                {{ latest.response }}
+            </div>
     {% endif %}
 </div>
-
 <!-- 2. Simulation Controls -->
 <div class="card" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #38bdf8;">
     <div>
         <h3 style="color: #0f172a;">Stress Test Controls</h3>
-        <p style="font-size: 0.85rem; color: #0f172a;">Inject "Poison Queries" to test database resilience.</p>
+        <p style="font-size: 0.85rem; color: #0f172a;">Inject queries to test database metric collection.</p>
     </div>
     <div style="display: flex; gap: 1rem;">
         <button id="start-btn" onclick="startSimulation()" class="btn-primar" {% if is_running %} disabled {% endif %}>Start Simulation</button>

@@ -1,11 +1,8 @@
 import json
 from datetime import datetime
 
-def save_to_json(new_data):
-    filename = "db_log.json"
-    
+def save_to_json(new_data, filename):
     new_data["timestamp"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print("Saving...")
     try:
         with open(filename, "r") as file:
             data_list = json.load(file)
@@ -15,11 +12,8 @@ def save_to_json(new_data):
 
     with open(filename, "w") as file:
         json.dump(data_list, file, indent=4)
-    
-    print(f"Metrics saved to {filename}")
 
-def get_all_logs():
-    filename = 'db_log.json'
+def get_all_logs(filename):
     try:
         with open(filename, "r") as file:
             return json.load(file)

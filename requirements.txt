@@ -3,3 +3,4 @@ psycopg2-binary
 psutil
 openai
 dotenv
+google-genai

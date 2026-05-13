@@ -10,10 +10,11 @@ def index():
 
 @frontend_bp.route('/dashboard')
 def dashboard():
-    all_logs = get_all_logs()
-    return render_template('dashboard.html', metrics = all_logs, is_running = get_sim_state())
+    all_metrics = get_all_logs(filename="db_log.json")
+    all_ai_logs = get_all_logs(filename="ai_insights.json")
+    return render_template('dashboard.html', metrics = all_metrics, ai_logs = all_ai_logs, is_running = get_sim_state())
 
 @frontend_bp.route('/detailedreport')
 def detailed_report():
-    all_logs = get_all_logs()
+    all_logs = get_all_logs(filename="db_log.json")
     return render_template('detailedreport.html', metrics = all_logs)

@@ -1,0 +1,59 @@
+[
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 9.6,
+            "ram_max": 63.9,
+            "swap_memory_max": 2.5,
+            "disk_percent": 68.5
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-13 20:14:35"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 11.2,
+            "ram_max": 64.0,
+            "swap_memory_max": 2.5,
+            "disk_percent": 68.5
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-13 20:15:37"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 8.3,
+            "ram_max": 64.4,
+            "swap_memory_max": 2.5,
+            "disk_percent": 68.5
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-13 20:16:40"
+    }
+]
