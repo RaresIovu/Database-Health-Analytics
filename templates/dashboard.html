@@ -8,23 +8,26 @@
 
 <!-- 1. Quick Stats Row -->
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-    {% if metrics and metrics|length > 0 %}
+    {% if metrics %}
         {% set latest = metrics[-1] %}
         <div class="card" style="text-align: center; padding: 1.5rem;">
             <label>CPU Usage</label>
-            <div style="font-size: 2rem; font-weight: 800; color: {{ '#f87171' if latest.system.cpu_max > 80 else '#4ade80' }};">
+            <div class="{{ 'text-danger' if latest.system.cpu_max > 80 else 'text-success' }}" 
+                style="font-size: 2rem; font-weight: 800;">
                 {{ latest.system.cpu_max }}%
             </div>
         </div>
         <div class="card" style="text-align: center; padding: 1.5rem;">
             <label>RAM Usage</label>
-            <div style="font-size: 2rem; font-weight: 800; color: {{ '#f87171' if latest.system.ram_max > 80 else '#4ade80' }};">
+            <div class="{{ 'text-danger' if latest.system.ram_max > 80 else 'text-success' }}" 
+                style="font-size: 2rem; font-weight: 800;">
                 {{ latest.system.ram_max }}%
             </div>
         </div>
         <div class="card" style="text-align: center; padding: 1.5rem;">
             <label>DB Latency</label>
-            <div style="font-size: 2rem; font-weight: 800; color: #38bdf8;">
+            <div class="{{ 'text-danger' if latest.connections.db_latency > 50 else 'text-success' }}" 
+                style="font-size: 2rem; font-weight: 800;">
                 <span style="font-size: 2rem;"> {{ latest.connections.db_latency }} ms</span>
             </div>
         </div>
@@ -34,12 +37,14 @@
     
 </div>
 <div class="card" style="text-align: center; padding: 1.5rem;">
-    {% if ai_logs and ai_logs|length > 0 %}
+    {% if ai_logs %}
         {% set latest = ai_logs[-1] %}
         <label>Latest AI Report</label>
-        <div style="font-size: 0.75 rem; font-weight: 600; color: '#4ade80';">
+        <div style="font-size: 1rem; font-weight: 600;">
                 {{ latest.response }}
             </div>
+    {% else %}
+        <div>No AI report available yet.</div>
     {% endif %}
 </div>
 <!-- 2. Simulation Controls -->
@@ -58,45 +63,50 @@
 <div class="card">
     <h3 style="margin-bottom: 1rem; color: #0f172a;">Snapshot History (Latest 20)</h3>
     <button id="clear-btn" 
+    style="margin-bottom: 1rem;"
     data-status="idle" 
     onclick="clearLogs(this)" 
     class="btn-primar">
     CLEAR LOGS</button>
-    <table>
-        <thead>
-            <tr>
-                <th>Timestamp</th>
-                <th>CPU</th>
-                <th>RAM</th>
-                <th>DB Latency</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for log in metrics[-20:]|reverse %}
-            <tr>
-                <td style="font-family: monospace;">{{ log.timestamp.split('T')[1][:8] if 'T' in log.timestamp else log.timestamp }}</td>
-                <td>{{ log.system.cpu_max }}%</td>
-                <td>{{ log.system.ram_max }}%</td>
-                <td>{{ log.connections.db_latency }} ms</td>
-                <td>
-                    {% if log.system.cpu_max > 80 %}
-                        <span class="badge badge-error">STRESSED</span>
-                    {% else %}
-                        <span class="badge badge-post">HEALTHY</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {% if metrics %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>CPU</th>
+                    <th>RAM</th>
+                    <th>DB Latency</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in metrics[-20:]|reverse %}
+                <tr>
+                    <td style="font-family: monospace;">{{ log.timestamp.split('T')[1][:8] if 'T' in log.timestamp else log.timestamp }}</td>
+                    <td>{{ log.system.cpu_max }}%</td>
+                    <td>{{ log.system.ram_max }}%</td>
+                    <td>{{ log.connections.db_latency }} ms</td>
+                    <td>
+                        {% set is_stressed = log.system.cpu_max > 80 or log.system.ram_max > 80 or log.connections.slow_queries > 5 %}
+                            {% if is_stressed %}
+                                <span class="badge badge-danger">CRITICAL</span>
+                            {% else %}
+                                <span class="badge badge-success">STABLE</span>
+                            {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div>No data available yet.</div>
+    {% endif %}
 </div>
 
 <script>
     function startSimulation() {
         const stopBtn = document.getElementById('stop-btn');
         const startBtn = document.getElementById('start-btn');
-        console.log("Sending start signal to Manager...");
         fetch('/api/simulation/start', { 
             method: 'POST' 
         }).then(response => {
@@ -131,7 +141,6 @@
     function clearLogs(btn) {
 
         if (btn.getAttribute('data-status') !== 'armed') {
-        // Arm the button
         btn.setAttribute('data-status', 'armed');
         btn.innerText = "CONFIRM DELETE";
         btn.classList.add('btn-danger-confirm'); 
@@ -140,12 +149,9 @@
             resetClearButton(btn);
         }, 3000);
         
-        return; // Stop here and wait for second click
+        return;
     }
-
-    // Step 3: The actual execution (happens on second click)
-    clearTimeout(clearTimer); // Stop the reset timer
-    console.log("Wiping JSON logs...");
+    clearTimeout(clearTimer); 
     
     fetch('/clear-logs', { method: 'POST' })
     .then(response => {

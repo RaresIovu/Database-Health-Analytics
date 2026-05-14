@@ -100,34 +100,12 @@
             background-color: #f8f9fa;
         }
 
-        /* ── Formular ── */
-        .form-grup {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            margin-bottom: 1.2rem;
-        }
-
         label {
             font-weight: 600;
             font-size: 0.9rem;
             color: #555;
         }
 
-        input[type="text"],
-        input[type="number"] {
-            padding: 0.6rem 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-            width: 100%;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #2c3e50;
-        }
 
         /* ── Butoane ── */
         button {
@@ -147,13 +125,11 @@
         }
 
         .toast {
-            background: rgba(15, 23, 42, 0.9); /* Dark slate */
-            color: #38bdf8; /* Neon blue */
+            background: rgba(15, 23, 42, 0.9); 
             border-left: 4px solid #38bdf8;
             padding: 12px 24px;
             margin-top: 10px;
             border-radius: 4px;
-            /* box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); */
             animation: slideIn 0.3s ease-out;
         }
 
@@ -170,7 +146,7 @@
         }
 
         .btn-danger-confirm {
-            background-color: #ef4444 !important; /* Bright Red */
+            background-color: #ef4444 !important; 
             color: white !important;
             border: 1px solid #fee2e2;
             box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
@@ -187,16 +163,6 @@
             background-color: #3d5166;
         }
 
-        .btn-secundar {
-            background-color: #7f8c8d;
-            color: #fff;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.85rem;
-        }
-
-        .btn-secundar:hover {
-            background-color: #95a5a6;
-        }
         button:disabled {
             background-color: #1e293b !important;
             color: #64748b !important; 
@@ -207,26 +173,6 @@
             pointer-events: none; 
         }
 
-        /* ── Mesaje de feedback ── */
-        .mesaj {
-            padding: 0.9rem 1.2rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            display: none;     /* ascuns implicit, JS il afiseaza */
-        }
-
-        .mesaj.succes {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .mesaj.eroare {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
         .text-danger {
             color: #f87171;
             font-weight: 700;
@@ -236,11 +182,6 @@
             color: #4ade80;
         }
 
-        .text-warning {
-            color: #fbbf24; 
-        }
-
-        /* ── Badge metoda HTTP ── */
         .badge {
             display: inline-block;
             padding: 0.2rem 0.55rem;
@@ -251,10 +192,8 @@
             vertical-align: middle;
             margin-right: 0.4rem;
         }
-
-        .badge-get  { background-color: #d1ecf1; color: #0c5460; }
-        .badge-post { background-color: #d4edda; color: #155724; }
-        .badge-patch { background-color: #fff3cd; color: #856404; }
+        .badge-success { background-color: #d4edda; color: #155724; } 
+        .badge-danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; } 
     </style>
 </head>
 <body>
@@ -269,7 +208,10 @@
 </nav>
 <div id="toast-container"></div>
 <main>
-    <script>
+    
+    {% block continut %}{% endblock %}
+</main>
+<script>
     function showToast(message, type = 'info') {
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
@@ -283,9 +225,6 @@
             setTimeout(() => toast.remove(), 500);
         }, 3000);
     }</script>
-    {% block continut %}{% endblock %}
-</main>
-
 </body>
 
 
