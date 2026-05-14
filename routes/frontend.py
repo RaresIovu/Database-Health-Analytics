@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
 from json_service import get_all_logs
 from tests.simulate_traffic import get_sim_state
 
@@ -10,11 +10,25 @@ def index():
 
 @frontend_bp.route('/dashboard')
 def dashboard():
-    all_metrics = get_all_logs(filename="db_log.json")
-    all_ai_logs = get_all_logs(filename="ai_insights.json")
-    return render_template('dashboard.html', metrics = all_metrics, ai_logs = all_ai_logs, is_running = get_sim_state())
-
+    try:
+        all_metrics = get_all_logs(filename="db_log.json")
+        all_ai_logs = get_all_logs(filename="ai_insights.json")
+        return render_template('dashboard.html', metrics = all_metrics, ai_logs = all_ai_logs, is_running = get_sim_state())
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
 @frontend_bp.route('/detailedreport')
 def detailed_report():
-    all_logs = get_all_logs(filename="db_log.json")
-    return render_template('detailedreport.html', metrics = all_logs)
+    try:
+        all_logs = get_all_logs(filename="db_log.json")
+        return render_template('detailedreport.html', metrics = all_logs)
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
+@frontend_bp.route('/aireports')
+def ai_logs():
+    try:
+        all_logs = get_all_logs(filename="ai_insights.json")
+        return render_template('ai_logs.html', insights = all_logs)
+    except Exception as e:
+        return jsonify({"error": str(e)})

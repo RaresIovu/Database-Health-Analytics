@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% set pagina = 'insights' %}
+
+{% block titlu %}AI Reports{% endblock %}
+
+{% block continut %}
+<h1>System Health Monitor</h1>
+
+<!-- Logs Table -->
+<div class="card">
+    <h3 style="margin-bottom: 1rem; color: #0f172a;">Full AI Reports Historyy</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Insight</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in insights[-100:]|reverse %}
+            <tr>
+                <td style="font-family: monospace;">{{ log.timestamp.split('T')[1][:8] if 'T' in log.timestamp else log.timestamp }}</td>
+            </td>
+            <td>
+                <span>
+                    {{ log.response }}
+                </span><br>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</tr>
+</div>
+
+
+{% endblock %}

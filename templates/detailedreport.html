@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set pagina = 'report' %}
 
-{% block titlu %}Dashboard{% endblock %}
+{% block titlu %}Detailed Report{% endblock %}
 
 {% block continut %}
 <h1>System Health Monitor</h1>
@@ -42,7 +42,8 @@
             <!-- TRAFFIC BUNDLE -->
             <td>
                 Total(Avg): {{ log.connections.average_connections }}<br>
-                Active: {{ log.connections.active_connections }} 
+                Active: {{ log.connections.active_connections }} <br>
+                Idle: {{ log.connections.idle_connections }}
             </td>
 
             <!-- PERFORMANCE BUNDLE -->

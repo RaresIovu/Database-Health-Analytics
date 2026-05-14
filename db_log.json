@@ -55,5 +55,480 @@
         },
         "db_size": "8550 kB",
         "timestamp": "2026-05-13 20:16:40"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 28.4,
+            "ram_max": 63.2,
+            "swap_memory_max": 2.5,
+            "disk_percent": 68.5
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-13 22:10:31"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 70.3,
+            "ram_max": 47.4,
+            "swap_memory_max": 1.4,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:00:57"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 20.4,
+            "ram_max": 48.7,
+            "swap_memory_max": 1.4,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:01:46"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 32.5,
+            "ram_max": 48.5,
+            "swap_memory_max": 1.4,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:02:48"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 10.0,
+            "ram_max": 53.6,
+            "swap_memory_max": 1.4,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:03:51"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 10.1,
+            "ram_max": 50.7,
+            "swap_memory_max": 1.7,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:04:53"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 9.0,
+            "ram_max": 49.8,
+            "swap_memory_max": 1.7,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:05:56"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 28.7,
+            "ram_max": 49.7,
+            "swap_memory_max": 1.7,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:06:58"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 39.6,
+            "ram_max": 49.7,
+            "swap_memory_max": 1.7,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:08:01"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 23.5,
+            "ram_max": 49.7,
+            "swap_memory_max": 1.7,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:09:03"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 9.4,
+            "ram_max": 50.8,
+            "swap_memory_max": 1.7,
+            "disk_percent": 68.3
+        },
+        "db_size": "8550 kB",
+        "timestamp": "2026-05-14 11:09:47"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 1,
+            "db_latency": 0.0,
+            "longest_read": 8.3,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 6.0,
+            "ram_max": 50.2,
+            "swap_memory_max": 2.2,
+            "disk_percent": 68.3
+        },
+        "db_size": "8558 kB",
+        "timestamp": "2026-05-14 11:10:50"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 1,
+            "db_latency": 0.0,
+            "longest_read": 6.52,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 4.0,
+            "ram_max": 49.8,
+            "swap_memory_max": 2.1,
+            "disk_percent": 68.3
+        },
+        "db_size": "8558 kB",
+        "timestamp": "2026-05-14 11:11:52"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 1,
+            "db_latency": 0.0,
+            "longest_read": 6.76,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 4.1,
+            "ram_max": 49.7,
+            "swap_memory_max": 2.1,
+            "disk_percent": 68.3
+        },
+        "db_size": "8558 kB",
+        "timestamp": "2026-05-14 11:12:54"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 5.8,
+            "ram_max": 49.4,
+            "swap_memory_max": 2.1,
+            "disk_percent": 68.3
+        },
+        "db_size": "8558 kB",
+        "timestamp": "2026-05-14 11:13:57"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.01,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 18.7,
+            "ram_max": 44.6,
+            "swap_memory_max": 2.1,
+            "disk_percent": 68.3
+        },
+        "db_size": "8558 kB",
+        "timestamp": "2026-05-14 11:14:59"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 17.6,
+            "ram_max": 45.3,
+            "swap_memory_max": 2.0,
+            "disk_percent": 68.1
+        },
+        "db_size": "8558 kB",
+        "timestamp": "2026-05-14 11:16:01"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 2.9,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 5.2,
+            "ram_max": 44.9,
+            "swap_memory_max": 2.0,
+            "disk_percent": 68.1
+        },
+        "db_size": "8566 kB",
+        "timestamp": "2026-05-14 11:17:04"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 12.2,
+            "ram_max": 44.9,
+            "swap_memory_max": 2.0,
+            "disk_percent": 68.1
+        },
+        "db_size": "8566 kB",
+        "timestamp": "2026-05-14 11:18:06"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 1,
+            "db_latency": 0.0,
+            "longest_read": 8.38,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 2.4,
+            "ram_max": 44.8,
+            "swap_memory_max": 2.0,
+            "disk_percent": 68.1
+        },
+        "db_size": "8566 kB",
+        "timestamp": "2026-05-14 11:19:08"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 1,
+            "db_latency": 0.0,
+            "longest_read": 9.73,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 8.0,
+            "ram_max": 44.8,
+            "swap_memory_max": 2.0,
+            "disk_percent": 68.1
+        },
+        "db_size": "8566 kB",
+        "timestamp": "2026-05-14 11:20:17"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 9.9,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 6.9,
+            "ram_max": 44.0,
+            "swap_memory_max": 2.9,
+            "disk_percent": 68.1
+        },
+        "db_size": "8566 kB",
+        "timestamp": "2026-05-14 11:21:19"
+    },
+    {
+        "connections": {
+            "average_connections": 10,
+            "active_connections": 2,
+            "idle_connections": 0,
+            "slow_queries": 1,
+            "db_latency": 0.0,
+            "longest_read": 6.96,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 3.3,
+            "ram_max": 44.0,
+            "swap_memory_max": 2.9,
+            "disk_percent": 68.1
+        },
+        "db_size": "8582 kB",
+        "timestamp": "2026-05-14 11:22:22"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 11.7,
+            "ram_max": 44.8,
+            "swap_memory_max": 2.8,
+            "disk_percent": 68.1
+        },
+        "db_size": "8582 kB",
+        "timestamp": "2026-05-14 11:23:24"
+    },
+    {
+        "connections": {
+            "average_connections": 9,
+            "active_connections": 1,
+            "idle_connections": 0,
+            "slow_queries": 0,
+            "db_latency": 0.0,
+            "longest_read": 0.0,
+            "longest_write": 0.0
+        },
+        "system": {
+            "cpu_max": 11.2,
+            "ram_max": 44.3,
+            "swap_memory_max": 2.8,
+            "disk_percent": 68.1
+        },
+        "db_size": "8582 kB",
+        "timestamp": "2026-05-14 11:24:27"
     }
 ]
