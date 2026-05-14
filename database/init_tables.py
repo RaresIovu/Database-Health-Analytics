@@ -9,7 +9,7 @@ def init_tables():
             name TEXT,
             quantity INTEGER
         )
-        """)
+        """) # Create mock tables to operate on within our simulation
             
 if __name__ == "__main__":
     init_tables()

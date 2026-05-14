@@ -5,21 +5,21 @@ from metrics.system_metrics import get_sys_metrics
 from ai_handler import generate_answer
 
 def collect_metrics():
-    ai_buffer = []
+    ai_buffer = [] # The AI buffer. It temporarily stores data from the collector, and when it reaches a set size(10) it will call generate_answer()
     while True:
         metrics = {
-            "connections": get_con_metrics(),
+            "connections": get_con_metrics(), 
             "system": get_sys_metrics(),
             "db_size": get_db_size()
         }
-        ai_buffer.append(metrics)
+        ai_buffer.append(metrics) # Get the entire metric dict and append it to the ai buffer
         save_to_json(metrics, filename="db_log.json")
         if len(ai_buffer) >= 10:
             ai_response = {
                 "response": generate_answer(ai_buffer)
             }
             save_to_json(ai_response, filename="ai_insights.json")
-            ai_buffer = []
+            ai_buffer = [] # Reset the buffer
 
-        time.sleep(60)
+        time.sleep(60) # Data is collected once every 60 seconds
     

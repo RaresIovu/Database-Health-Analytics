@@ -111,8 +111,8 @@
             method: 'POST' 
         }).then(response => {
             if (response.ok) {
-                stopBtn.disabled = false
-                startBtn.disabled = true
+                stopBtn.disabled = false // Although we do pass an is_running argument, a zombie query still counts as an ongoing client, even if the manager oficially stopped the sim
+                startBtn.disabled = true // This ensures that frontend doesnt lag behind the backend
                 showToast("Worker Active: Stress Test Started", "success");
             } else {
                 alert("Failed to start simulation.");

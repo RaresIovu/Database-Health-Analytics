@@ -3,20 +3,22 @@ from psycopg2.extras import RealDictCursor
 import time
 
 def get_con_metrics(samples = 5):
+    # Basic metrics for a database
     active_samples = []
     idle_samples = []
     totalcon_samples = []
-    slowq_samples = []
-    latency_samples = []
-    maxreads_samples = []
-    maxwrites_samples = []
+    slowq_samples = [] # Amount of slow queries at time of collection
+    latency_samples = [] 
+    maxreads_samples = [] # Maximum time spent on a read query
+    maxwrites_samples = [] # Maximum time spent on a write query
     for _ in range(samples):
         with get_connection() as con:
-            with con.cursor(cursor_factory=RealDictCursor) as cur:
+            with con.cursor(cursor_factory=RealDictCursor) as cur: # RealDictCursor fetches dictionaries instead of tuples, making data acquisition much more intuitive
                 start_time = time.perf_counter()
                 cur.execute("SELECT 1;")
                 cur.fetchone()
                 end_time = time.perf_counter()
+                # This is a latency test done by pinging the databse
                 latency = end_time - start_time
                 
                 cur.execute("""SELECT
@@ -43,10 +45,13 @@ def get_con_metrics(samples = 5):
                         maxwrites_samples.append(0)
                     else:
                         maxwrites_samples.append(stats["max_write_duration"])
-                time.sleep(0.2)
+                time.sleep(0.2) # We collect data 5 times and draw an average/max, depending on what we analyze. This helps catch spikes
+                # Alternatively, we can increase sleep time and number of samples, along with more often collection for an even more effective
+                # Way of catching spikes
 
     if not totalcon_samples:
         return {"average_connections": 0, "active_connections":0, "slow_queries": 0, "db_latency": 0, "longest_read": 0, "longest_write": 0}
+        # If we dont have any samples, we return a 0 for all, this could be interpreted in the route as "N/A" and displayed as such. Possible update
     return {
         "average_connections": int(sum(totalcon_samples)/len(totalcon_samples)),
         "active_connections": int(sum(active_samples)/len(active_samples)),
@@ -64,3 +69,5 @@ def get_db_size():
                 result = cur.fetchone()
                 return result['size']
     return "N/A"
+
+# Information about the database itself

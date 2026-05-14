@@ -11,5 +11,6 @@ def clear_logs():
         with open('data/ai_insights.json', 'w') as f:
             json.dump([], f)
         return {"status": "success", "message": "Logs cleared"}, 200
+    # Deletes all stored data: reports and AI insights
     except Exception as e:
         return {"status": "error", "message": str(e)}, 500

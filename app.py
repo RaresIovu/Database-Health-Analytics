@@ -6,14 +6,15 @@ from routes.dashboard import dashboard_bp
 from routes.simulate import simulate_bp
 from routes.frontend import frontend_bp
 
+# load blueprints
 app = Flask(__name__, template_folder="templates")
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(simulate_bp)
 app.register_blueprint(frontend_bp)
 
 if(__name__ == "__main__"):
-    collector_thread = threading.Thread(target=collect_metrics, daemon=True)
+    collector_thread = threading.Thread(target=collect_metrics, daemon=True) # daemon=True ensures the termination of the thread after the main thread is terminated
     client_thread = threading.Thread(target=simulation_manager, daemon=True)
     collector_thread.start()
     client_thread.start()
-    app.run(debug=True, host="0.0.0.0", port=5000, use_reloader=False)
+    app.run(debug=True, host="0.0.0.0", port=5000, use_reloader=False) # the reloader will also reload the thread, which opens them twice - we disable that
